@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX Example</title>
+</head>
+<body>
+  <h1>Username</h1>
+  <p id="username"></p>
+  <button id="change-button">Change Username</button>
+
+  <script>
+    //fetch username
+    function fetchUsername() {
+      // Create a new XMLHttpRequest object
+      const xhr = new XMLHttpRequest();
+
+      //generate a random number between 1-10
+      let randomNumber = 1;
+      randomNumber = Math.floor(Math.random() * 9  + 1);
+
+      // Configure the request
+      xhr.open('GET', `https://jsonplaceholder.typicode.com/users/${randomNumber}`, true);
+
+      // Define what to do when the response is received
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Parse the JSON response
+          const response = JSON.parse(xhr.responseText);
+
+          // Display the quote on the web page
+          document.getElementById('username').textContent = response.name;
+        } else {
+          console.error('Error fetching data:', xhr.status);
+        }
+      };
+
+      // Handle network errors
+      xhr.onerror = function () {
+        console.error('Network error occurred');
+      };
+
+      // Send the AJAX request
+      xhr.send();
+    }
+
+    // Event listener for the "Load Quote" button
+    document.getElementById('change-button').addEventListener('click', fetchUsername);
+
+    // Initially, load a quote when the page loads
+    fetchUsername();
+  </script>
+</body>
+</html>
