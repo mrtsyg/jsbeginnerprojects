@@ -19,11 +19,16 @@
         document.getElementById('username').textContent = users.name;
     }
 
-    // Event listener for the "Load Quote" button
+    // Event listener for the "change username" button
     document.getElementById('change-button').addEventListener('click', fetchUsername);
 
-    // Initially, load a quote when the page loads
-    fetchUsername();
+    try{
+        // Initially, load a name when the page loads
+        fetchUsername();
+    }catch(err){
+        document.getElementById('username').textContent = "There is an error" + err;
+    }
+    
   </script>
 </body>
 </html>
